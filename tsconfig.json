@@ -2,15 +2,11 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "ts-node": {
     "swc": false,
-    "transpileOnly": true,
-    "moduleTypes": {
-      "webpack.config.js": "cjs"
-    },
-    "require": ["tsconfig-paths/register"]
+    "transpileOnly": true
   },
   "compilerOptions": {
     "target": "ES2020",
-    "module": "commonjs",
+    "module": "ES2020",
     "moduleResolution": "node",
     "importHelpers": true,
     "strict": true,

@@ -55,13 +55,11 @@ module.exports = {
     'wix-editor/return-boolean': 1,
     'wix-editor/simplify-boolean-expression': 1,
     // unicorn
-    'unicorn/prefer-spread': 0,
-    'unicorn/catch-error-name': 0,
-    'unicorn/prefer-node-protocol': 0,
     'unicorn/prevent-abbreviations': [
       1,
       {
         replacements: {
+          dist: false,
           args: false,
           err: false,
           prod: false,

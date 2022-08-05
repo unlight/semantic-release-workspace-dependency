@@ -2,10 +2,12 @@
   "name": "semantic-release-workspace-dependency",
   "version": "0.0.0-dev",
   "license": "MIT",
-  "description": "",
-  "keywords": [],
-  "files": [
-    "dist"
+  "description": "semantic-release plugin to update version of workspace dependency",
+  "keywords": [
+    "workspace",
+    "workspaces",
+    "semantic-release",
+    "semantic-release-plugin"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -16,11 +18,21 @@
       "require": "./dist/index.cjs"
     }
   },
+  "dependencies": {
+    "@antongolub/git-root": "^1.5.7",
+    "@npmcli/map-workspaces": "^2.0.4",
+    "@semantic-release/error": ">=3 <=4",
+    "aggregate-error": ">=4 <=5",
+    "ensure-error": "^4.0.0",
+    "find-versions": "^5.1.0",
+    "read-package-json-fast": "^2.0.3",
+    "semver": "^7.3.7"
+  },
   "scripts": {
     "test": "npm run eslint && npm run tscheck && npm run test:cov",
-    "test:r": "npm run mocha -- src/**/*.spec.ts",
-    "test:cov": "c8 --reporter text --exclude \"**/*.spec.ts\" --exclude \"**/testing/**\" npm run test:r -- --no-timeouts",
-    "test:w": "npm run test:r -- --watch-files src --watch",
+    "test:r": "vitest run src",
+    "test:cov": "vitest run src --coverage",
+    "test:w": "vitest watch src",
     "lint": "npm run eslint && npm run tscheck",
     "eslint": "node node_modules/eslint/bin/eslint \"src/**/*.{ts,tsx}\"",
     "eslint:w": "watchexec -w src \"npm run eslint\"",
@@ -29,17 +41,19 @@
     "tscheck:w": "npm run tscheck -- --watch",
     "format:src": "prettier src --write",
     "commit": "cz",
-    "build": "sh Taskfile build_pkgroll_dist",
-    "lint:w": "run-p tscheck:w eslint:w",
-    "mocha": "node -r ts-node/register node_modules/mocha/bin/mocha"
+    "build": "sh Taskfile build_pkgroll",
+    "lint:w": "run-p tscheck:w eslint:w"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
-    "@types/mocha": "^9.1.1",
-    "@types/node": "^18.6.3",
+    "@types/lodash": "^4.14.182",
+    "@types/mock-fs": "^4.13.1",
+    "@types/node": "^18.6.4",
+    "@types/semantic-release": "^17.2.4",
+    "@types/semver": "^7.3.10",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
     "c8": "^7.12.0",
@@ -59,14 +73,17 @@
     "eslint-plugin-unicorn": "^43.0.2",
     "eslint-plugin-wix-editor": "^3.3.0",
     "expect": "^28.1.3",
-    "mocha": "^10.0.0",
+    "lodash": "^4.17.21",
+    "mock-fs": "^5.1.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "request": "^2.88.2",
     "semantic-release": "^19.0.3",
     "tsconfig-paths": "^4.0.0",
     "tslib": "^2.4.0",
+    "type-fest": "^2.18.0",
     "typescript": "^4.7.4",
+    "vitest": "^0.21.0",
     "watchexec-bin": "^1.0.0"
   }
 }
