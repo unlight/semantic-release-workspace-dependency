@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/unlight/semantic-release-workspace-dependency/compare/v1.0.0...v1.0.1) (2022-08-05)
+
+
+### Bug Fixes
+
+* Support commonjs only ([57d023f](https://github.com/unlight/semantic-release-workspace-dependency/commit/57d023f201b3d164e11559f993c3341f77d08a35))
+
 ## 1.0.0 (2022-08-05)
 
 
