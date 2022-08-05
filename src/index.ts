@@ -1,12 +1,14 @@
+import findVersions from 'find-versions';
 import assert from 'node:assert';
 import { writeFile } from 'node:fs/promises';
 import SemanticRelease from 'semantic-release';
+import semverMaxSatisfying from 'semver/ranges/max-satisfying';
 
 import { getCwdDistPackage } from './get-cwd-dist-package';
 import { getCwdPackage } from './get-cwd-package';
 import { getGitRoot } from './get-git-root';
 import { getMapWorkspaces } from './get-map-workspaces';
-import { getSatisfyingVersion } from './get-satisfying-version';
+import { getTags } from './get-tags';
 import { PluginConfig } from './types';
 import { verifyConfig } from './verify-config';
 
@@ -76,10 +78,9 @@ export async function prepare(pluginConfig: PluginConfig, context: Context) {
       continue;
     }
 
-    const dependencyVersion = getSatisfyingVersion({
-      name: packageName,
-      range: version,
-    });
+    const tags = getTags({ name: packageName });
+    const versions = findVersions(tags, { loose: true });
+    const dependencyVersion = semverMaxSatisfying(versions, version);
 
     if (!dependencyVersion) {
       continue;
@@ -93,9 +94,3 @@ export async function prepare(pluginConfig: PluginConfig, context: Context) {
     JSON.stringify(cwdDistPackage, undefined, 2),
   );
 }
-
-// export async function analyzeCommits(pluginConfig, context) {
-//   // TODO: Remove test
-//   // d(context);
-//   return 'patch';
-// }

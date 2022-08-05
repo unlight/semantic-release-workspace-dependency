@@ -145,9 +145,9 @@ describe('prepare', () => {
   });
 
   it('prepare plugin', async () => {
-    vi.mock('./get-satisfying-version', () => {
+    vi.mock('./get-tags', () => {
       return {
-        getSatisfyingVersion: () => '0.0.5',
+        getTags: () => 'v0.0.5',
       };
     });
 

@@ -15,6 +15,7 @@ build_pkgroll() {
     jq '.exports.".".import = "./index.mjs"' |
     jq '.exports.".".require = "./index.cjs"' \
       >dist/package.json
+  rm dist/index.mjs
   set +x
 }
 
