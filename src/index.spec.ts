@@ -175,7 +175,7 @@ describe('prepare', () => {
   it.todo('inject getSatisfyingVersion');
 });
 
-describe('integration', () => {
+describe.skipIf(process.env.CI)('integration', () => {
   it('dry run', async () => {
     await semanticRelease({
       dryRun: true,
@@ -190,7 +190,7 @@ describe('integration', () => {
     });
   });
 
-  it.runIf(process.env.CI)('no ci', async () => {
+  it('no ci', async () => {
     await semanticRelease({
       dryRun: false,
       noCi: true,
