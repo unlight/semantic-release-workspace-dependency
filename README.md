@@ -31,11 +31,11 @@ Add `semantic-release-workspace-dependency` after `@semantic-release/npm` and `@
 
 ```json
 {
-	"plugins": [
-		"@semantic-release/npm",
-		"@semantic-release/git",
-		["semantic-release-workspace-dependency", { "prefix": "~" }]
-	]
+  "plugins": [
+    "@semantic-release/npm",
+    "@semantic-release/git",
+    ["semantic-release-workspace-dependency", { "prefix": "~" }]
+  ]
 }
 ```
 
