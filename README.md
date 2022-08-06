@@ -1,6 +1,6 @@
 # semantic-release-workspace-dependency
 
-> [semantic-release](https://github.com/semantic-release/semantic-release) plugin to update version of workspace dependency.
+Plugin for [semantic-release](https://github.com/semantic-release/semantic-release) to update version of workspace dependency.
 
 | Step               | Description                            |
 | ------------------ | -------------------------------------- |
@@ -10,14 +10,30 @@
 ## Install
 
 ```bash
-npm i --save-dev semantic-release-workspace-dependency
+npm i -D semantic-release-workspace-dependency
 ```
 
-## Usage
+## Usage / How it works
 
 The plugin can be configured in the [**semantic-release** configuration file](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration):
 
 Add `semantic-release-workspace-dependency` after `@semantic-release/npm` and `@semantic-release/git` plugins.
+
+Plugin is supposed to be used in repository with multiple packages (monorepository strategy)
+with `semantic-release-commit-filter`.
+
+Let's say that we have workspace:
+
+- package `foo`
+- package `bar` depends on `foo`
+
+Package `bar` has depenency defined in package as `foo:*`.
+
+Your must run `build` and `semantic-release` for each package using your monorepo tool (nx, wireit, etc.)
+which can detect the correct order of execution.
+
+When package `bar` is going to be published on `prepare` step it replace `*` by latest verion of `foo` package.
+Version will be taken for git tags. `*` can be any valid semver range, e.g. `1.X`
 
 ## Configuration
 
@@ -31,10 +47,11 @@ Add `semantic-release-workspace-dependency` after `@semantic-release/npm` and `@
 
 ```json
 {
+  "extends": ["semantic-release-commit-filter"],
   "plugins": [
     "@semantic-release/npm",
     "@semantic-release/git",
-    ["semantic-release-workspace-dependency", { "prefix": "~" }]
+    ["semantic-release-workspace-dependency", { "prefix": "^" }]
   ]
 }
 ```
